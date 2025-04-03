@@ -37,6 +37,7 @@
 #include <functional>
 #include "Engine/LatentActionManager.h"
 #define UE5CORO_PRIVATE_SUPPRESS_COROUTINE_INL
+#include "HAL/Event.h"
 #include "UE5Coro/Coroutine.h"
 #include "UE5Coro/Private.h"
 
@@ -309,7 +310,12 @@ class [[nodiscard]] UE5CORO_API FLatentPromise : public FPromise
 	friend Debug::FUE5CoroCategory;
 	friend Test::FTestHelper;
 
-	static int UUID;
+	static int32 (*GetUUIDFunctionPointer)();
+
+	/**
+	 * default function for generating UUID for latent action
+	 */
+	static int32 GetUUIDDefault();
 
 	TWeakObjectPtr<UWorld> World;
 	void* LatentAction = nullptr; // Use Extras->Lock for destruction
@@ -354,6 +360,12 @@ public:
 		TAwaitTransform<FLatentPromise, std::remove_cvref_t<T>> Transform;
 		return Transform(std::forward<T>(Awaitable));
 	}
+
+	using UUIDFunctionType = decltype(GetUUIDFunctionPointer);
+
+	static void SetUUIDFunction(UUIDFunctionType InUUIDFunction);
+
+	static int32 GetUUID();
 };
 
 template<typename T, typename Base, typename Extras>

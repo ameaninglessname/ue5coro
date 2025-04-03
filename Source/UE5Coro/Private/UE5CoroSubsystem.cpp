@@ -31,6 +31,8 @@
 
 #include "UE5Coro/UE5CoroSubsystem.h"
 #include "UE5CoroChainCallbackTarget.h"
+#include "Engine/World.h"
+#include "UE5Coro/Promise.h"
 
 using namespace UE5Coro::Private;
 
@@ -63,7 +65,7 @@ FLatentActionInfo UUE5CoroSubsystem::MakeLatentInfo()
 	checkf(IsInGameThread(), TEXT("Unexpected latent info off the game thread"));
 	// Using INDEX_NONE linkage and next as the UUID is marginally faster due
 	// to an early exit in FLatentActionManager::TickLatentActionForObject.
-	return {INDEX_NONE, NextLinkage++, TEXT("None"), this};
+	return {INDEX_NONE, FLatentPromise::GetUUID(), TEXT("None"), this};
 }
 
 FLatentActionInfo UUE5CoroSubsystem::MakeLatentInfo(FTwoLives* State)
@@ -77,7 +79,7 @@ FLatentActionInfo UUE5CoroSubsystem::MakeLatentInfo(FTwoLives* State)
 			FLatentActionManager::OnLatentActionsChanged().AddUObject(
 				this, &ThisClass::LatentActionsChanged);
 
-	int32 Linkage = NextLinkage++;
+	int32 Linkage = FLatentPromise::GetUUID();
 	checkf(!ChainCallbackTargets.Contains(Linkage),
 	       TEXT("Unexpected linkage collision"));
 	// Pooling these objects was found to be consistently slower

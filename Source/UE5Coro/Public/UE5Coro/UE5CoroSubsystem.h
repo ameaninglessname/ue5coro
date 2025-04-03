@@ -47,7 +47,6 @@ class UUE5CoroSubsystem final : public UTickableWorldSubsystem
 
 	UPROPERTY()
 	TMap<int32, TObjectPtr<class UUE5CoroChainCallbackTarget>> ChainCallbackTargets;
-	int32 NextLinkage = 0;
 	FDelegateHandle LatentActionsChangedHandle;
 
 public:

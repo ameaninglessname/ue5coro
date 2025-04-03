@@ -172,7 +172,23 @@ bool FAsyncPromise::IsEarlyDestroy() const
 	return ShouldCancel(false);
 }
 
-int FLatentPromise::UUID = 0;
+FLatentPromise::UUIDFunctionType FLatentPromise::GetUUIDFunctionPointer = &FLatentPromise::GetUUIDDefault;
+
+void FLatentPromise::SetUUIDFunction(const UUIDFunctionType InUUIDFunction)
+{
+	GetUUIDFunctionPointer = InUUIDFunction;
+}
+
+int32 FLatentPromise::GetUUID()
+{
+	return GetUUIDFunctionPointer();
+}
+
+int32 FLatentPromise::GetUUIDDefault()
+{
+	static int32 UUID{0};
+	return UUID++;
+}
 
 void FLatentPromise::CreateLatentAction(const UObject* Owner)
 {
@@ -184,7 +200,7 @@ void FLatentPromise::CreateLatentAction(const UObject* Owner)
 	       TEXT("Could not determine world for latent coroutine"));
 
 	CreateLatentAction(
-		{INDEX_NONE, UUID++, TEXT("None"), const_cast<UObject*>(Owner)});
+		{INDEX_NONE, GetUUID(), TEXT("None"), const_cast<UObject*>(Owner)});
 }
 
 // This is a separate function so that template Init() doesn't need the type
