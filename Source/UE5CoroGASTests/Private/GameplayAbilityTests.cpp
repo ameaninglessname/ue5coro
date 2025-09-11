@@ -34,6 +34,7 @@
 #include "Misc/EngineVersionComparison.h"
 #include "Tasks/GameplayTask_WaitDelay.h"
 #include "UE5CoroGASTestGameplayAbility.h"
+#include "UObject/UObjectIterator.h"
 
 using namespace UE5Coro::Private::Test;
 

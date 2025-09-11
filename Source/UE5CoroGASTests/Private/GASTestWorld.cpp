@@ -32,6 +32,7 @@
 #include "GASTestWorld.h"
 #include "AbilitySystemComponent.h"
 #include "UE5CoroGASTestAvatar.h"
+#include "GameFramework/PlayerController.h"
 
 using namespace UE5Coro::Private::Test;
 

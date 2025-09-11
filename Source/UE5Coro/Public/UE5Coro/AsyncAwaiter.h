@@ -378,7 +378,7 @@ public:
 	                           EThreadCreateFlags Flags)
 		: Priority(Priority), Flags(Flags), Affinity(Affinity) { }
 
-	void Suspend(FPromise&);
+	void Suspend(FPromise&) const;
 };
 
 // Stores references as values. Structured bindings will give references.

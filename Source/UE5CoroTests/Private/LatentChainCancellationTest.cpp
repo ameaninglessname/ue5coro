@@ -33,6 +33,7 @@
 #include "Kismet/KismetSystemLibrary.h"
 #include "Misc/AutomationTest.h"
 #include "UE5Coro.h"
+#include "UObject/UObjectIterator.h"
 
 using namespace std::placeholders;
 using namespace UE5Coro;

@@ -36,16 +36,22 @@ namespace
 struct [[maybe_unused]] FIfYouSeeThisYourCompilerIsBroken
 {
 	using promise_type = FIfYouSeeThisYourCompilerIsBroken;
-	FIfYouSeeThisYourCompilerIsBroken(auto, int) { }
-	promise_type get_return_object() { return {[] { }, 0}; }
+    // FIfYouSeeThisYourCompilerIsBroken(auto) { }
+	// FIfYouSeeThisYourCompilerIsBroken(auto, int) { }
+	promise_type get_return_object() { return {}; }
 	std::suspend_never initial_suspend() { return {}; }
 	std::suspend_never final_suspend() noexcept { return {}; }
 	void unhandled_exception() { }
 	void return_void() { }
 };
 
+FIfYouSeeThisYourCompilerIsBroken CoroTest(int)
+{
+    co_return;
+}
+
 void LlvmTrap()
 {
-	/* If you see this, your compiler is affected by https://github.com/llvm/llvm-project/issues/91983 */ [](int) -> FIfYouSeeThisYourCompilerIsBroken { co_return; }(0);
+	/* If you see this, your compiler is affected by https://github.com/llvm/llvm-project/issues/91983 */ CoroTest(0);
 }
 }

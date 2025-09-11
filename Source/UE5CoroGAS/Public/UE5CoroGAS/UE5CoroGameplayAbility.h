@@ -37,6 +37,8 @@
 #include "UE5CoroGAS/AbilityPromise.h"
 #include "UE5CoroGameplayAbility.generated.h"
 
+class UUE5CoroTaskCallbackTarget;
+
 /** Usage summary:
  *  - Override ExecuteAbility with a coroutine instead of ActivateAbility
  *  - Call CommitAbility like usual, but do *NOT* call EndAbility

@@ -32,6 +32,7 @@
 #pragma once
 
 #include "UE5Coro/Private.h"
+#include "Async/Async.h"
 
 #pragma region Private
 namespace UE5Coro::Private

@@ -32,6 +32,8 @@
 #include "UE5Coro/AsyncAwaiter.h"
 #include "UE5Coro/TaskAwaiter.h"
 #include "UE5CoroDelegateCallbackTarget.h"
+#include "Async/Async.h"
+#include "HAL/Runnable.h"
 
 using namespace UE5Coro;
 using namespace UE5Coro::Private;
@@ -169,7 +171,7 @@ void FThreadPoolAwaiter::Suspend(FPromise& InPromise)
 	Pool.AddQueuedWork(this, Priority);
 }
 
-void FNewThreadAwaiter::Suspend(FPromise& Promise)
+void FNewThreadAwaiter::Suspend(FPromise& Promise) const
 {
 	new FAutoStartResumeRunnable(Promise, Priority, Affinity, Flags);
 }
