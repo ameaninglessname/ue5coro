@@ -30,7 +30,12 @@
 // ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "TestWorld.h"
+
+#include "Engine/Engine.h"
+#include "GameFramework/WorldSettings.h"
 #include "HAL/ThreadManager.h"
+#include "Misc/App.h"
+#include "Misc/AutomationTest.h"
 
 using namespace UE5Coro::Private::Test;
 
