@@ -33,6 +33,7 @@
 #include "Misc/AutomationTest.h"
 #include "UE5Coro.h"
 #include "UE5CoroTestObject.h"
+#include "UObject/Package.h"
 
 using namespace UE5Coro;
 using namespace UE5Coro::Latent;
